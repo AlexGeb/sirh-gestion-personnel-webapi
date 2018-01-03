@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,6 +53,31 @@ public class CollaborateursController {
 			return optCollab.get().getBanqueInfo();
 		} else {
 			return null;
+		}
+	}
+	
+	@RequestMapping(method = RequestMethod.PUT, value = "/{matricule}")
+	public boolean modifyCollab(@PathVariable String matricule,@RequestBody Collaborateur collaborateur) {
+		Optional<Collaborateur> optCollab = this.collaborateursRepo.findByMatricule(matricule);
+		if (optCollab.isPresent()) {
+			collaborateur.setId(optCollab.get().getId());
+			collaborateursRepo.save(collaborateur);
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	@RequestMapping(method = RequestMethod.PUT, value = "/{matricule}/banque")
+	public boolean modifyBanqueOfCollab(@PathVariable String matricule,@RequestBody BanqueInfo banqueInfo) {
+		Optional<Collaborateur> optCollab = this.collaborateursRepo.findByMatricule(matricule);
+		if (optCollab.isPresent()) {
+			Collaborateur collaborateur = optCollab.get();
+			collaborateur.setBanqueInfo(banqueInfo);
+			collaborateursRepo.save(collaborateur);
+			return true;
+		} else {
+			return false;
 		}
 	}
 }

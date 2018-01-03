@@ -23,8 +23,7 @@ public class Departement {
 	private Departement() {
 	}
 
-	public Departement(Integer id, String nom) {
-		this.id = id;
+	public Departement(String nom) {
 		this.nom = nom;
 	}
 

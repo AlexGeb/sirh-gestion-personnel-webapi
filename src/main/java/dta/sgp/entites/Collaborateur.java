@@ -72,7 +72,7 @@ public class Collaborateur {
 	 * ZonedDateTime.now() photo = default-avatar.png matricule = un random mixé
 	 * avec le timestamp phone = unknown
 	 */
-	public Collaborateur() {
+	private Collaborateur() {
 		this.actif = true;
 		this.dateHeureCreation = ZonedDateTime.now();
 		this.intitulePoste = "employé";
@@ -97,7 +97,7 @@ public class Collaborateur {
 	 * @param nom
 	 * @param prenom
 	 */
-	private Collaborateur(String nom, String prenom) {
+	public Collaborateur(String nom, String prenom) {
 		this();
 		this.nom = nom;
 		this.prenom = prenom;
